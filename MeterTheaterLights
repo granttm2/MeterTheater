@@ -156,20 +156,21 @@ def LEDUpdate(stateMat):
     def jsonLoad(input):
         url=('https://10.1.210.32:8002/api/Labs/?extend=true')
         r2=requests.get(url,cookies=r1.cookies, verify=False)
+        open(input, "w").close()
         with open(input, "w") as outfile: 
             json.dump(r2.json(), outfile)
-        with open(input) as input_file:
-            old_data = json.load(input_file)# Transform json input to python objects
+            old_data = json.load(outfile)
+        #with open(input) as input_file:
+        #     old_data = json.load(input_file)# Transform json input to python objects
         jsonStr=json.dumps(old_data)
         aList = json.loads(jsonStr)
         #this is the part of the code that may have to be changed for different labs
-        #for 6th floor lab right wall: metTotal = len(aList[1]['tables'][
+        #for 6th floor lab right wall, look at README
         metTotal=len(aList[0]['tables'][0]['locations']) #get total number of sockets on wall
         stateList=[0]*metTotal
         for i in range(metTotal):
             stateList[i]=aList[0]['tables'][0]['locations'][i]['sockets'][0]['socketUserId']
         stateMatFill(stateList)
-        
 while True:
 #iterates through state matrix and updates LEDs based on states (if socketUserId is NULL, then availabe, if not null than unavailable)
     jsonLoad("socketAPICall")
