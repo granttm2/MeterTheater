@@ -6,8 +6,6 @@ import neopixel
 import numpy as np
 import json
 import requests
-import random
-# from collections import defaultdict
 
 r1size=8
 r2size=7
@@ -15,67 +13,35 @@ r3size=6
 r4size=6
 r5size=0
 r6size=0
-
-pix = neopixel.NeoPixel(board.D18, 3*(r1size+r2size+r3size+r4size+r5size+r6size), brightness=0.1)
-
-
-
-pix1 = neopixel.NeoPixel(board.D12, r1size, brightness=0.2)
-pix2 = neopixel.NeoPixel(board.D18, r2size, brightness=0.2)
-pix3 = neopixel.NeoPixel(board.D13, r3size, brightness=0.2)
-pix4 = neopixel.NeoPixel(board.D21, r4size, brightness=0.2)
 #change these values to specify size of each row
-while True:
 
+pix = neopixel.NeoPixel(board.D12, 3*(r1size+r2size+r3size+r4size+r5size+r6size), brightness=.5)
+
+r1=requests.post('https://10.1.210.32:8002/api/Logins/Login', json='BusPI', verify=False)
+
+while True:
 #iterates through state matrix and updates LEDs based on states (if socketUserId is NULL, then availabe, if not null than unavailable)
-    def PartyTime(stateMat):
-        partyMat=stateMat.copy()
-        count=0
-        while count < 5:
-            count+=1
-            for row in partyMat:
-                for col in range(3*len(row)):
-                    r=random.randrange(0,255)
-                    g=random.randrange(0,255)
-                    b=random.randrange(0,255)
-                    pix[col]=(r,g,b)
-        return
-                    
-        
     def LEDUpdate(stateMat):
-#         print(stateMat)
-#         c=0
-        print(stateMat)
         for row in stateMat:
             for col in range(len(row)):
-                #four GPIO pin implementation with 4 seperate LED array objects
-#                 print(row,col)
                 rowIn=stateMat.index(row)
                 #1d matrix implementation (better for implementing on larger scale, more computations)
                 if rowIn==0:
                     offset=3*(r1size-col)
                     if row[col]==None:
-                        
                         time.sleep(0.01)
                         pix[offset-1]=(0,255,0)
                         time.sleep(0.01)
                         pix[offset-2]=(0,255,0)
                         time.sleep(0.01)
                         pix[offset-3]=(0,255,0)
-#                         print(offset-1,rowIn,col,"green")
-#                         print(offset-2,rowIn,col,"green")
-#                         print(offset-3,rowIn,col,"green")
                     else:
-
                         time.sleep(0.01)
                         pix[offset-1]=(255,0,0)
                         time.sleep(0.01)
                         pix[offset-2]=(255,0,0)
                         time.sleep(0.01)
                         pix[offset-3]=(255,0,0)
-#                         print(offset-1,rowIn,col,"red")
-#                         print(offset-2,rowIn,col,"red")
-#                         print(offset-3,rowIn,col,"red")
                 elif rowIn==1:
                     offset=3*(r1size+r2size-col)
                     offset=3*(r1size+col)
@@ -86,20 +52,13 @@ while True:
                         pix[offset+1]=(0,255,0)
                         time.sleep(0.01)
                         pix[offset+2]=(0,255,0)
-#                         print(offset,rowIn,col,"green")
-#                         print(offset+1,rowIn,col,"green")
-#                         print(offset+2,rowIn,col,"green")
                     else:
-                        
                         time.sleep(0.01)
                         pix[offset]=(255,0,0)
                         time.sleep(0.01)
                         pix[offset+1]=(255,0,0)
                         time.sleep(0.01)
                         pix[offset+2]=(255,0,0)
-#                         print(offset,rowIn,col,"red")
-#                         print(offset+1,rowIn,col,"red")
-#                         print(offset+2,rowIn,col,"red")
                 elif rowIn==2:
                     offset=3*(r1size+r2size+r3size-col)
                     if row[col]==None:
@@ -109,9 +68,6 @@ while True:
                         pix[offset-2]=(0,255,0)
                         time.sleep(0.01)
                         pix[offset-3]=(0,255,0)
-#                         print(offset-1,rowIn,col,"green")
-#                         print(offset-2,rowIn,col,"green")
-#                         print(offset-3,rowIn,col,"green")
                     else: 
                         time.sleep(0.01)
                         pix[offset-1]=(255,0,0)
@@ -119,9 +75,6 @@ while True:
                         pix[offset-2]=(255,0,0)
                         time.sleep(0.01)
                         pix[offset-3]=(255,0,0)
-#                         print(offset-1,rowIn,col,"red")
-#                         print(offset-2,rowIn,col,"red")
-#                         print(offset-3,rowIn,col,"red")
                 elif rowIn==3:
                     offset=3*(r1size+r2size+r3size+col)
                     if row[col]==None:
@@ -131,9 +84,6 @@ while True:
                         pix[offset+1]=(0,255,0)
                         time.sleep(0.01)
                         pix[offset+2]=(0,255,0)
-#                         print(offset,rowIn,col,"green")
-#                         print(offset+1,rowIn,col,"green")
-#                         print(offset+2,rowIn,col,"green")
                     else:
                         time.sleep(0.01)
                         pix[offset]=(255,0,0)
@@ -141,9 +91,6 @@ while True:
                         pix[offset+1]=(255,0,0)
                         time.sleep(0.01)
                         pix[offset+2]=(255,0,0)
-#                         print(offset,rowIn,col,"red")
-#                         print(offset+1,rowIn,col,"red")
-#                         print(offset+2,rowIn,col,"red")
                 elif rowIn==4:
                     offset=3*(r1size+r2size+r3size+r4size+r5size-col)
                     if row[col]==None:
@@ -153,9 +100,6 @@ while True:
                         pix[offset-2]=(0,255,0)
                         time.sleep(0.01)
                         pix[offset-3]=(0,255,0)
-#                         print(offset-1,rowIn,col,"green")
-#                         print(offset-2,rowIn,col,"green")
-#                         print(offset-3,rowIn,col,"green")
                     else:
                         time.sleep(0.01)
                         pix[offset-1]=(255,0,0)
@@ -163,9 +107,6 @@ while True:
                         pix[offset-2]=(255,0,0)
                         time.sleep(0.01)
                         pix[offset-3]=(255,0,0)
-#                         print(offset-1,rowIn,col,"red")
-#                         print(offset-2,rowIn,col,"red")
-#                         print(offset-3,rowIn,col,"red")
                 elif rowIn==5:
                     offset=3*(r1size+r2size+r3size+r4size+r5size+col)
                     if row[col]==None:
@@ -175,101 +116,13 @@ while True:
                         pix[offset+1]=(0,255,0)
                         time.sleep(0.01)
                         pix[offset+2]=(0,255,0)
-#                         print(offset,rowIn,col,"green")
-#                         print(offset+1,rowIn,col,"green")
-#                         print(offset+2,rowIn,col,"green")
                     else:
                         time.sleep(0.01)
                         pix[offset]=(255,0,0)
                         time.sleep(0.01)
                         pix[offset+1]=(255,0,0)
                         time.sleep(0.01)
-                        pix[offset+2]=(255,0,0)
-#                         print(offset,rowIn,col,"red")
-#                         print(offset+1,rowIn,col,"red")
-#                         print(offset+2,rowIn,col,"red")
-                        
-                #2d matrix implementation (harder to power)
-                '''
-                if rowIn==0:
-                    if col==None:
-                        time.sleep(0.01)
-                        pix1[col]=(0,255,0)
-                        time.sleep(0.01)
-                        pix1[col+1]=(0,255,0)
-                        time.sleep(0.01)
-                        pix1[col+2]=(0,255,0)
-                    else:
-                        time.sleep(0.01)
-                        pix1[col]=(255,0,0)
-                        time.sleep(0.01)
-                        pix1[col+1]=(255,0,0)
-                        time.sleep(0.01)
-                        pix1[col+2]=(255,0,0)
-                elif rowIn==1:
-                    if col==None:
-                        time.sleep(0.01)
-                        pix2[col]=(0,255,0)
-                        time.sleep(0.01)
-                        pix2[col+1]=(0,255,0)
-                        time.sleep(0.01)
-                        pix2[col+2]=(0,255,0)
-                    else:
-                        time.sleep(0.01)
-                        pix2[col]=(255,0,0)
-                        time.sleep(0.01)
-                        pix2[col+1]=(255,0,0)
-                        time.sleep(0.01)
-                        pix2[col+2]=(255,0,0)
-                elif rowIn==2:
-                    if col==None:
-                        time.sleep(0.01)
-                        pix3[col]=(0,255,0)
-                        time.sleep(0.01)
-                        pix3[col+1]=(0,255,0)
-                        time.sleep(0.01)
-                        pix3[col+2]=(0,255,0)
-                    else:
-                        time.sleep(0.01)
-                        pix3[col]=(255,0,0)
-                        time.sleep(0.01)
-                        pix3[col+1]=(255,0,0)
-                        time.sleep(0.01)
-                        pix3[col+2]=(255,0,0)
-               elif rowIn==3:
-                    if col==None:
-                        time.sleep(0.01)
-                        pix4[col]=(0,255,0)
-                        time.sleep(0.01)
-                        pix4[col+1]=(0,255,0)
-                        time.sleep(0.01)
-                        pix4[col+2]=(0,255,0)
-                    else:
-                        time.sleep(0.01)
-                        pix4[col]=(255,0,0)
-                        time.sleep(0.01)
-                        pix4[col+1]=(255,0,0)
-                        time.sleep(0.01)
-                        pix4[col+2]=(255,0,0)
-               '''
-                '''
-                if row[col]==None:
-    #                 time.sleep(0.01)
-                    pix[c]=(0,255,0)
-    #                 time.sleep(0.01)
-                    pix[c+1]=(0,255,0)
-    #                 time.sleep(0.01)
-                    pix[c+2]=(0,255,0)
-                else:
-    #                 time.sleep(0.01)
-                    pix[c]=(255,0,0)
-    #                 time.sleep(0.01)
-                    pix[c+1]=(255,0,0)
-    #                 time.sleep(0.01)
-                    pix[c+2]=(255,0,0)
-       
-                c+=3
-                '''        
+                        pix[offset+2]=(255,0,0)                 
     #fils out state matrix with values from the state list (stateMat type: List[List[]])
     def stateMatFill(stateList):
     #initialize each row as a list of zeroes
@@ -292,7 +145,6 @@ while True:
             row5[i]=stateList[i+r1size+r2size+r3size+r4size]
         for i in range(r6size):
             row6[i]=stateList[i+r1size+r2size+r3size+r4size+r6size]
-
 #append each row into the resulting non rectangular LED state matrix and write to file
         stateMat=[]
         stateMat.append(row1)
@@ -303,14 +155,12 @@ while True:
         stateMat.append(row6)
 #with the new state matrix, update LEDs
         LEDUpdate(stateMat)
-        
     #loads needed json information from api call to an array and builds state list array 
     def jsonLoad(input):
-        url=("http://10.1.210.32:8001/api/Labs/?extend=true")
-        r=requests.get(url)
-        r.json()
+        url=('https://10.1.210.32:8002/api/Labs/?extend=true')
+        r2=requests.get(url,cookies=r1.cookies, verify=False)
         with open(input, "w") as outfile: 
-            json.dump(r.json(), outfile)
+            json.dump(r2.json(), outfile)
         with open(input) as input_file:
             old_data = json.load(input_file)# Transform json input to python objects
         jsonStr=json.dumps(old_data)
