@@ -1,5 +1,5 @@
 # MeterTheater
-2022 Landis+Gyr Technical Implementation Engineer Internship code
+2022 Landis+Gyr 
 
 What to change for implementation on the 6th floor lab and beyond:
 
