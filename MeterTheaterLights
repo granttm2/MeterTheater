@@ -132,7 +132,7 @@ while True:
         row4=[0]*r4size
         row5=[0]*r5size
         row6=[0]*r6size
-    #fill in each row and save each row into text file
+    #fill in each row from state list
         for i in range(r1size):
             row1[i]=stateList[i]
         for i in range(r2size):
