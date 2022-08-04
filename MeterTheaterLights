@@ -29,13 +29,12 @@ r1=requests.post('https://10.1.210.32:8002/api/Logins/Login', json='BusPI', veri
 while True:
 #iterates through state matrix and updates LEDs based on states (if socketUserId is NULL, then availabe, if not null than unavailable)
     def LEDUpdate(stateMat):
-        for row in stateMat:
-            for col in range(len(row)):
-                rowIn=stateMat.index(row)
+        for row in range(6):
+            for col in range(stateMat[row]):
                 #1d matrix implementation (better for implementing on larger scale, more computations)
-                if rowIn==0:
+                if row==0:
                     offset=3*(r1size-col)
-                    if row[col]==None:
+                    if stateMat[row][col]==None:
                         time.sleep(0.01)
                         pix[offset-1]=(0,255,0)
                         time.sleep(0.01)
@@ -49,10 +48,10 @@ while True:
                         pix[offset-2]=(255,0,0)
                         time.sleep(0.01)
                         pix[offset-3]=(255,0,0)
-                elif rowIn==1:
+                elif row==1:
                     offset=3*(r1size+r2size-col)
                     offset=3*(r1size+col)
-                    if row[col]==None:
+                    if stateMat[row][col]==None:
                         time.sleep(0.01)
                         pix[offset]=(0,255,0)
                         time.sleep(0.01)
@@ -66,9 +65,9 @@ while True:
                         pix[offset+1]=(255,0,0)
                         time.sleep(0.01)
                         pix[offset+2]=(255,0,0)
-                elif rowIn==2:
+                elif row==2:
                     offset=3*(r1size+r2size+r3size-col)
-                    if row[col]==None:
+                    if stateMat[row][col]==None:
                         time.sleep(0.01)
                         pix[offset-1]=(0,255,0)
                         time.sleep(0.01)
@@ -82,9 +81,9 @@ while True:
                         pix[offset-2]=(255,0,0)
                         time.sleep(0.01)
                         pix[offset-3]=(255,0,0)
-                elif rowIn==3:
+                elif row==3:
                     offset=3*(r1size+r2size+r3size+col)
-                    if row[col]==None:
+                    if stateMat[row][col]==None:
                         time.sleep(0.01)
                         pix[offset]=(0,255,0)
                         time.sleep(0.01)
@@ -98,9 +97,9 @@ while True:
                         pix[offset+1]=(255,0,0)
                         time.sleep(0.01)
                         pix[offset+2]=(255,0,0)
-                elif rowIn==4:
+                elif row==4:
                     offset=3*(r1size+r2size+r3size+r4size+r5size-col)
-                    if row[col]==None:
+                    if stateMat[row][col]==None:
                         time.sleep(0.01)
                         pix[offset-1]=(0,255,0)
                         time.sleep(0.01)
@@ -114,9 +113,9 @@ while True:
                         pix[offset-2]=(255,0,0)
                         time.sleep(0.01)
                         pix[offset-3]=(255,0,0)
-                elif rowIn==5:
+                elif row==5:
                     offset=3*(r1size+r2size+r3size+r4size+r5size+col)
-                    if row[col]==None:
+                    if stateMat[row][col]==None:
                         time.sleep(0.01)
                         pix[offset]=(0,255,0)
                         time.sleep(0.01)
