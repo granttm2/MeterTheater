@@ -1,5 +1,6 @@
-# MeterTheater
-2022 Landis+Gyr 
+ 
+
+## Pi Software
 
 What to change for implementation on the 6th floor lab and beyond:
 
@@ -19,59 +20,59 @@ This line esentially fills the stateList with the socketUserId's of all of the m
 
 If you cannot figure out how to properly parse the JSON file for further implemetation in other labs, use Postman to view the JSON file from an API call. 
 
-[
-  {
-    "labId": 1,
-    "labName": "2nd Floor Lab",
-    "tables": [
+    [
       {
-        "tableId": 1,
-        "tableName": "Front Wall",
-        "tableLabId": 1,
-        "locations": [
+        "labId": 1,
+        "labName": "2nd Floor Lab",
+        "tables": [
           {
-            "locationId": 1,
-            "locationRow": 1,
-            "locationCol": 1,
-            "locationTableId": 1,
-            "sockets": [
+            "tableId": 1,
+            "tableName": "Front Wall",
+            "tableLabId": 1,
+            "locations": [
               {
-                "socketId": 1,
-                "socketMeterId": null,
-                "socketUserId": null,
-                "socketForm": "2S",
-                "socketVoltage": 208,
-                "socketLocationId": 1,
-                "socketCheckOutTime": "2022-08-02T11:50:04.26",
-                "socketCheckInTime": "2022-08-02T12:40:41.53",
-                "socketDuration": null,
-                "socketComment": null,
-                "socketMeter": null,
-                "socketUser": null,
-                "logs": []
-              }
-            ]
-          },
-          {
-            "locationId": 2,
-            "locationRow": 1,
-            "locationCol": 2,
-            "locationTableId": 1,
-            "sockets": [
+                "locationId": 1,
+                "locationRow": 1,
+                "locationCol": 1,
+                "locationTableId": 1,
+                "sockets": [
+                  {
+                    "socketId": 1,
+                    "socketMeterId": null,
+                    "socketUserId": null,
+                    "socketForm": "2S",
+                    "socketVoltage": 208,
+                    "socketLocationId": 1,
+                    "socketCheckOutTime": "2022-08-02T11:50:04.26",
+                    "socketCheckInTime": "2022-08-02T12:40:41.53",
+                    "socketDuration": null,
+                    "socketComment": null,
+                    "socketMeter": null,
+                    "socketUser": null,
+                    "logs": []
+                  }
+                ]
+              },
               {
-                "socketId": 2,
-                "socketMeterId": null,
-                "socketUserId": null,
-                "socketForm": "2S",
-                "socketVoltage": 208,
-                "socketLocationId": 2,
-                "socketCheckOutTime": "2022-07-29T09:08:31.423",
-                "socketCheckInTime": "2022-08-01T10:20:15.627",
-                "socketDuration": null,
-                "socketComment": null,
-                "socketMeter": null,
-                "socketUser": null,
-                "logs": []
-              }
-            ]
-          },
+                "locationId": 2,
+                "locationRow": 1,
+                "locationCol": 2,
+                "locationTableId": 1,
+                "sockets": [
+                  {
+                    "socketId": 2,
+                    "socketMeterId": null,
+                    "socketUserId": null,
+                    "socketForm": "2S",
+                    "socketVoltage": 208,
+                    "socketLocationId": 2,
+                    "socketCheckOutTime": "2022-07-29T09:08:31.423",
+                    "socketCheckInTime": "2022-08-01T10:20:15.627",
+                    "socketDuration": null,
+                    "socketComment": null,
+                    "socketMeter": null,
+                    "socketUser": null,
+                    "logs": []
+                  }
+                ]
+              },
