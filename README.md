@@ -11,10 +11,12 @@ Change the expression to calculate metTotal (line 170)
 Below is a snippit of the formatted JSON file from the API call on line 161.
 
 To get metTotal for the 6th floor, right wall, replace line 170 with:
-metTotal=len(aList[1]['tables'][0]['locations'])
+
+  metTotal=len(aList[1]['tables'][0]['locations'])
 
 You will also need to change the expression on line 173, lets do the 6th floor right wall as an example:
-stateList[i]=aList[1]['tables'][0]['locations'][i]['sockets'][0]['socketUserId']
+
+  stateList[i]=aList[1]['tables'][0]['locations'][i]['sockets'][0]['socketUserId']
 
 This line esentially fills the stateList with the socketUserId's of all of the meters on a wall. If the socketUserId is NULL (in python, 'None') then no one owns the meter so the corresponding LEDs should be green. If the socketUserId is not NULL, then someone is occupying the socket so the corresponding LEDs should be red.
 
