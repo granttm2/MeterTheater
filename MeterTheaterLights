@@ -81,6 +81,7 @@ def LEDUpdate(stateMat):
                         pix[offset+1]=(0,255,0)
                         time.sleep(0.01)
                         pix[offset+2]=(0,255,0)
+                        print(col,"green")
                     else:
                         time.sleep(0.01)
                         pix[offset]=(255,0,0)
@@ -88,6 +89,7 @@ def LEDUpdate(stateMat):
                         pix[offset+1]=(255,0,0)
                         time.sleep(0.01)
                         pix[offset+2]=(255,0,0)
+                        print(col,"green")
                 elif rowIn==4:
                     offset=3*(r1size+r2size+r3size+r4size+r5size-col)
                     if row[col]==None:
