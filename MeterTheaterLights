@@ -121,56 +121,56 @@ def LEDUpdate(stateMat):
                         time.sleep(0.01)
                         pix[offset+2]=(255,0,0)                 
     #fils out state matrix with values from the state list (stateMat type: List[List[]])
-    def stateMatFill(stateList):
+def stateMatFill(stateList):
     #initialize each row as a list of zeroes
-        row1=[0]*r1size 
-        row2=[0]*r2size
-        row3=[0]*r3size
-        row4=[0]*r4size
-        row5=[0]*r5size
-        row6=[0]*r6size
+     row1=[0]*r1size 
+     row2=[0]*r2size
+     row3=[0]*r3size
+     row4=[0]*r4size
+     row5=[0]*r5size
+     row6=[0]*r6size
     #fill in each row from state list
-        for i in range(r1size):
-            row1[i]=stateList[i]
-        for i in range(r2size):
-            row2[i]=stateList[i+r1size]
-        for i in range(r3size):
-            row3[i]=stateList[i+r1size+r2size]
-        for i in range(r4size):
-            row4[i]=stateList[i+r1size+r2size+r3size]
-        for i in range(r5size):
-            row5[i]=stateList[i+r1size+r2size+r3size+r4size]
-        for i in range(r6size):
-            row6[i]=stateList[i+r1size+r2size+r3size+r4size+r6size]
+     for i in range(r1size):
+        row1[i]=stateList[i]
+     for i in range(r2size):
+        row2[i]=stateList[i+r1size]
+     for i in range(r3size):
+        row3[i]=stateList[i+r1size+r2size]
+     for i in range(r4size):
+        row4[i]=stateList[i+r1size+r2size+r3size]
+     for i in range(r5size):
+        row5[i]=stateList[i+r1size+r2size+r3size+r4size]
+     for i in range(r6size):
+        row6[i]=stateList[i+r1size+r2size+r3size+r4size+r6size]
 #append each row into the resulting non rectangular LED state matrix and write to file
-        stateMat=[]
-        stateMat.append(row1)
-        stateMat.append(row2)
-        stateMat.append(row3)
-        stateMat.append(row4)
-        stateMat.append(row5)
-        stateMat.append(row6)
+     stateMat=[]
+     stateMat.append(row1)
+     stateMat.append(row2)
+     stateMat.append(row3)
+     stateMat.append(row4)
+     stateMat.append(row5)
+     stateMat.append(row6)
 #with the new state matrix, update LEDs
-        LEDUpdate(stateMat)
+     LEDUpdate(stateMat)
     #loads needed json information from api call to an array and builds state list array 
-    def jsonLoad(input):
-        url=('https://10.1.210.32:8002/api/Labs/?extend=true')
-        r2=requests.get(url,cookies=r1.cookies, verify=False)
-        open(input, "w").close()
-        with open(input, "w") as outfile: 
-            json.dump(r2.json(), outfile)
-            old_data = json.load(outfile)
+def jsonLoad(input):
+     url=('https://10.1.210.32:8002/api/Labs/?extend=true')
+     r2=requests.get(url,cookies=r1.cookies, verify=False)
+     open(input, "w").close()
+     with open(input, "w") as outfile: 
+         json.dump(r2.json(), outfile)
+         old_data = json.load(outfile)
         #with open(input) as input_file:
         #     old_data = json.load(input_file)# Transform json input to python objects
-        jsonStr=json.dumps(old_data)
-        aList = json.loads(jsonStr)
+     jsonStr=json.dumps(old_data)
+     aList = json.loads(jsonStr)
         #this is the part of the code that may have to be changed for different labs
         #for 6th floor lab right wall, look at README
-        metTotal=len(aList[0]['tables'][0]['locations']) #get total number of sockets on wall
-        stateList=[0]*metTotal
-        for i in range(metTotal):
-            stateList[i]=aList[0]['tables'][0]['locations'][i]['sockets'][0]['socketUserId']
-        stateMatFill(stateList)
+     metTotal=len(aList[0]['tables'][0]['locations']) #get total number of sockets on wall
+     stateList=[0]*metTotal
+     for i in range(metTotal):
+         stateList[i]=aList[0]['tables'][0]['locations'][i]['sockets'][0]['socketUserId']
+     stateMatFill(stateList)
 while True:
 #iterates through state matrix and updates LEDs based on states (if socketUserId is NULL, then availabe, if not null than unavailable)
     jsonLoad("socketAPICall")
